@@ -8,7 +8,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mongo
     ports:
       - "27017:27017"
-    # volumes:
+    volumes:
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     #   - ./volumes/mongoDB:/data/db
     networks:
       - net-case-itau
