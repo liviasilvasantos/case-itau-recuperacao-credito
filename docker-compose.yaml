@@ -10,7 +10,6 @@ services:
       - "27017:27017"
     volumes:
       - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    #   - ./volumes/mongoDB:/data/db
     networks:
       - net-case-itau
 
