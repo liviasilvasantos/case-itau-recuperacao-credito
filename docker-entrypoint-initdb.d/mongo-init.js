@@ -1,5 +1,17 @@
 db = new Mongo().getDB("dbCustomer");
+
+//customers
 db.createCollection("customers");
+db.createUser(
+    {
+        user: "customer",
+        pwd: "customer",
+        roles: [{
+                role: "readWrite",
+                db: "dbCustomer"
+            }]
+    }
+);
 
 db.customers.insertMany([
     {

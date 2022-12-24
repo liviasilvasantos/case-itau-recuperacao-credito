@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @With
 @Getter
-@Document
+@Document(value = "customers")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
