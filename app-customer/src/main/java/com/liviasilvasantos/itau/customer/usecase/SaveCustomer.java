@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetCustomerByEmail {
+public class SaveCustomer {
 
     private final CustomerGateway customerGateway;
 
-    public Customer execute(final String email) throws CustomerNotFoundException {
-        return customerGateway.findByEmail(email)
-                .orElseThrow(()-> new CustomerNotFoundException("no customer found for email " + email));
+    public Customer execute(final Customer customer){
+        return customerGateway.save(customer);
     }
 }

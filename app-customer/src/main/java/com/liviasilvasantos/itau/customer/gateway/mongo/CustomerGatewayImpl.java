@@ -20,17 +20,22 @@ public class CustomerGatewayImpl implements CustomerGateway {
     }
 
     @Override
-    public Optional<Customer> findById(String id) {
+    public Optional<Customer> findById(final String id) {
         return customerRepository.findById(id);
     }
 
     @Override
-    public Optional<Customer> findByEmail(String email) {
+    public Optional<Customer> findByEmail(final String email) {
         return customerRepository.findByEmail(email);
     }
 
     @Override
-    public Customer save(Customer customer) {
+    public Customer save(final Customer customer) {
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public void remove(final Customer customer) {
+        customerRepository.delete(customer);
     }
 }

@@ -3,19 +3,22 @@ package com.liviasilvasantos.itau.customer.gateway.http.json;
 import com.liviasilvasantos.itau.customer.domain.Customer;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 @Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerJson {
 
-    private String id;
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String email;
 
     public static CustomerJson of(final Customer customer){
         return CustomerJson.builder()
-                .id(customer.getId())
                 .name(customer.getName())
                 .email(customer.getEmail())
                 .build();

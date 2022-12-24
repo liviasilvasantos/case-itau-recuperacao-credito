@@ -11,4 +11,5 @@ public interface CustomerGateway {
     Optional<Customer> findById(String id);
     Optional<Customer> findByEmail(String email);
     Customer save(Customer customer);
+    void remove(Customer customer);
 }
