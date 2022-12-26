@@ -2,6 +2,7 @@ package com.liviasilvasantos.itau.customer.gateway.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorMessage implements Serializable {
