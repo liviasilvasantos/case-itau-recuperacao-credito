@@ -1,5 +1,6 @@
 package com.liviasilvasantos.itau.customer.gateway.http;
 
+import com.liviasilvasantos.itau.customer.domain.Customer;
 import com.liviasilvasantos.itau.customer.gateway.http.converter.CustomerDomainConverter;
 import com.liviasilvasantos.itau.customer.gateway.http.json.CustomerJson;
 import com.liviasilvasantos.itau.customer.gateway.http.json.CustomerResponseJson;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,16 +54,22 @@ public class CustomerController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerResponseJson> save(@RequestBody @Valid final CustomerJson customerJson) {
         val customer = saveCustomer.execute(customerDomainConverter.convert(customerJson));
-        val uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(customer.getId())
-                .toUri();
-        return ResponseEntity.created(uri).body(CustomerResponseJson.of(customer));
+        return ResponseEntity.created(buildCustomerUri(customer)).body(CustomerResponseJson.of(customer));
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable(value = "id") final String id) {
         deleteCustomerById.execute(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //TODO implement PUT or PATCH
+
+    private static URI buildCustomerUri(final Customer customer) {
+        val uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(customer.getId())
+                .toUri();
+        return uri;
     }
 }
