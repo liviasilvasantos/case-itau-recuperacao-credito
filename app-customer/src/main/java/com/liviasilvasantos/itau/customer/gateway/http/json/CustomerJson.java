@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -20,11 +22,14 @@ public class CustomerJson implements Serializable {
     private String name;
 
     @NotBlank(message = "E-mail should not be empty")
+    @Email
     private String email;
 
+    @Valid
     @NotEmpty(message = "Addresses should not be empty.")
     private List<AddressJson> addresses;
 
+    @Valid
     @NotEmpty(message = "Phones should not be empty.")
     private List<PhoneJson> phones;
 
