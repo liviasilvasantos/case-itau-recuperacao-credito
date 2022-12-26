@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - localhost:9092
+    topics:
+      notification-request: notifications.customer.request.v1
+  data:
+    mongodb:
+      username: notification
+      password: notification
+      host: localhost
+      port: 27017
+      database: dbNotification
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
