@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Builder
@@ -15,24 +15,24 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class AddressJson implements Serializable {
 
-    @NotEmpty(message = "Address Type should not be empty")
+    @NotBlank(message = "Address Type should not be empty")
     private AddressType type;
 
-    @NotEmpty(message = "Street should not be empty")
+    @NotBlank(message = "Street should not be empty")
     private String street;
 
-    @NotEmpty(message = "Number should not be empty")
+    @NotBlank(message = "Number should not be empty")
     private String number;
 
     private String complement;
 
-    @NotEmpty(message = "City should not be empty")
+    @NotBlank(message = "City should not be empty")
     private String city;
 
-    @NotEmpty(message = "State should not be empty")
+    @NotBlank(message = "State should not be empty")
     private String state;
 
-    @NotEmpty(message = "Country should not be empty")
+    @NotBlank(message = "Country should not be empty")
     private String country;
 
     private String district;

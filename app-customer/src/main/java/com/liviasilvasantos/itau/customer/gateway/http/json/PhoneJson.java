@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Builder
@@ -15,16 +15,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class PhoneJson implements Serializable {
 
-    @NotEmpty(message = "Phone Type should not be empty")
+    @NotBlank(message = "Phone Type should not be empty")
     private PhoneType type;
 
-    @NotEmpty(message = "Country code should not be empty")
+    @NotBlank(message = "Country code should not be empty")
     private int countryCode;
 
-    @NotEmpty(message = "Code should not be empty")
+    @NotBlank(message = "Code should not be empty")
     private String code;
 
-    @NotEmpty(message = "Number should not be empty")
+    @NotBlank(message = "Number should not be empty")
     private String number;
 
 }
