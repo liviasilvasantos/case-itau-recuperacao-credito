@@ -1,26 +1,31 @@
 package com.liviasilvasantos.itau.customer.gateway.http.json;
 
-import com.liviasilvasantos.itau.customer.domain.Customer;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.List;
 
 @Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerJson {
+public class CustomerJson implements Serializable {
 
-    @NotBlank
+    @NotBlank(message = "Name should not be empty")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "E-mail should not be empty")
     private String email;
 
-    public static CustomerJson of(final Customer customer){
-        return CustomerJson.builder()
-                .name(customer.getName())
-                .email(customer.getEmail())
-                .build();
-    }
+    @Size(min = 1, message = "Should have at least one address")
+    private List<AddressJson> addresses;
+
+    @Size(min = 1, message = "Should have at least one phone")
+    private List<PhoneJson> phones;
+
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -17,4 +18,5 @@ public class ErrorMessage implements Serializable {
     private String error;
     private String message;
     private String path;
+    private List<String> validationErrors;
 }

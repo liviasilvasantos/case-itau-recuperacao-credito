@@ -4,8 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -19,15 +18,13 @@ public class Customer {
     @Id
     private String id;
 
-    @NotBlank
     private String name;
 
-    @NotBlank
     private String email;
 
-    @Size(min = 1)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
     private List<Address> addresses;
 
-    @Size(min = 1)
     private List<Phone> phones;
 }
