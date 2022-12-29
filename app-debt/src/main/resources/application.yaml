@@ -1,0 +1,20 @@
+server:
+  port: 8084
+
+spring:
+  data:
+    mongodb:
+      username: debt
+      password: debt
+      host: localhost
+      port: 27017
+      database: dbDebt
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
+  kafka:
+    producer:
+      bootstrap-servers:
+        - localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topics:
+      payment-renegotiation-request: payment.renegotiation.create.request

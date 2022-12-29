@@ -95,3 +95,19 @@ dbCatalog.catalogs.insertMany([
         status: "ACTIVE"
     }
 ]);
+
+//dbDebt
+dbDebt = new Mongo().getDB("dbDebt");
+dbDebt.createCollection("debts");
+dbDebt.createUser(
+    {
+        user: "debt",
+        pwd: "debt",
+        roles: [
+            {
+                role: "readWrite",
+                db: "dbDebt"
+            }
+        ]
+    }
+);
