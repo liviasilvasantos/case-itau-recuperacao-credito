@@ -1,0 +1,13 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      username: catalog
+      password: catalog
+      host: localhost
+      port: 27017
+      database: dbCatalog
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
+
