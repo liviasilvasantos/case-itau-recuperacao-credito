@@ -1,4 +1,4 @@
-package com.liviasilvasantos.itau.customer.gateway.exception;
+package com.liviasilvasantos.itau.catalog.gateway.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -6,30 +6,41 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(value = {CustomerNotFoundException.class})
+    @ExceptionHandler(value = {CatalogNotFoundException.class})
     public ResponseEntity<ErrorMessage> handleNotFound(final RuntimeException exception,
                                                        final WebRequest request) {
         val errorMessage = buildErrorMessage(exception, request, HttpStatus.NOT_FOUND, null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 
+    @ExceptionHandler(value = {IllegalArgumentException.class, ConstraintViolationException.class})
+    public ResponseEntity<ErrorMessage> handleClientException(final RuntimeException exception,
+                                                              final WebRequest request) {
+        val errorMessage = buildErrorMessage(exception, request, HttpStatus.BAD_REQUEST, null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> handleValidationExceptions(
             final MethodArgumentNotValidException exception, final WebRequest request) {
+        log.error(exception.getMessage(), exception);
 
         val errors = new ArrayList<String>();
-        exception.getBindingResult().getAllErrors().forEach((error) -> {
+        exception.getBindingResult().getAllErrors().forEach(error -> {
             val fieldName = ((FieldError) error).getField();
             val errorMessage = error.getDefaultMessage();
             errors.add("%s: %s".formatted(fieldName, errorMessage));
