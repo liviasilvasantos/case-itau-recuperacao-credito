@@ -2,6 +2,7 @@ package com.liviasilvasantos.itau.debt.gateway.kafka;
 
 import com.liviasilvasantos.itau.debt.domain.Debt;
 import com.liviasilvasantos.itau.debt.gateway.PaymentRenegotiationGateway;
+import com.liviasilvasantos.itau.debt.gateway.kafka.request.CreatePaymentRenegotiationRequest;
 import com.liviasilvasantos.itau.debt.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -27,6 +28,6 @@ public class PaymentRenegotiationGatewayImpl implements PaymentRenegotiationGate
     }
 
     private String buildMessage(final Debt debt) {
-        return jsonUtils.toJson(debt);
+        return jsonUtils.toJson(CreatePaymentRenegotiationRequest.of(debt));
     }
 }
