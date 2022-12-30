@@ -1,0 +1,17 @@
+
+server:
+  port: 8085
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+
+spring:
+  data:
+    mongodb:
+      username: payment
+      password: payment
+      host: localhost
+      port: 27017
+      database: dbPayment
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}

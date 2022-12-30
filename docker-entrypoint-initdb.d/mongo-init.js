@@ -1,16 +1,14 @@
 //dbCustomer
 dbCustomer = new Mongo().getDB("dbCustomer");
 dbCustomer.createCollection("customers");
-dbCustomer.createUser(
-    {
-        user: "customer",
-        pwd: "customer",
-        roles: [{
-                role: "readWrite",
-                db: "dbCustomer"
-            }]
-    }
-);
+dbCustomer.createUser({
+    user: "customer",
+    pwd: "customer",
+    roles: [{
+        role: "readWrite",
+        db: "dbCustomer"
+    }]
+});
 dbCustomer.customers.insertMany([
     {
         name: 'Lívia Santos',
@@ -25,18 +23,14 @@ dbCustomer.customers.insertMany([
 //dbNotification
 dbNotification = new Mongo().getDB("dbNotification");
 dbNotification.createCollection("notifications");
-dbNotification.createUser(
-    {
-        user: "notification",
-        pwd: "notification",
-        roles: [
-            {
-                role: "readWrite",
-                db: "dbNotification"
-            }
-        ]
-    }
-);
+dbNotification.createUser({
+    user: "notification",
+    pwd: "notification",
+    roles: [{
+        role: "readWrite",
+        db: "dbNotification"
+    }]
+});
 dbNotification.notifications.insertMany([
     {
         type: "SMS",
@@ -53,18 +47,14 @@ dbNotification.notifications.insertMany([
 //dbCatalog
 dbCatalog = new Mongo().getDB("dbCatalog");
 dbCatalog.createCollection("catalogs");
-dbCatalog.createUser(
-    {
-        user: "catalog",
-        pwd: "catalog",
-        roles: [
-            {
-                role: "readWrite",
-                db: "dbCatalog"
-            }
-        ]
-    }
-);
+dbCatalog.createUser({
+    user: "catalog",
+    pwd: "catalog",
+    roles: [{
+        role: "readWrite",
+        db: "dbCatalog"
+    }]
+});
 dbCatalog.catalogs.insertMany([
     {
         code: "PIX-40%",
@@ -99,15 +89,23 @@ dbCatalog.catalogs.insertMany([
 //dbDebt
 dbDebt = new Mongo().getDB("dbDebt");
 dbDebt.createCollection("debts");
-dbDebt.createUser(
-    {
-        user: "debt",
-        pwd: "debt",
-        roles: [
-            {
-                role: "readWrite",
-                db: "dbDebt"
-            }
-        ]
-    }
-);
+dbDebt.createUser({
+    user: "debt",
+    pwd: "debt",
+    roles: [{
+        role: "readWrite",
+        db: "dbDebt"
+    }]
+});
+
+//dbPayment
+dbPayment = new Mongo().getDB("dbPayment")
+dbPayment.createCollection("payments")
+dbPayment.createUser({
+    user: "payment",
+    pwd: "payment",
+    roles: [{
+        role: "readWrite",
+        db: "dbPayment"
+    }]
+});
