@@ -12,23 +12,23 @@ import org.springframework.util.concurrent.SuccessCallback;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class PaymentKafkaProducer {
+public class KafkaProducer {
 
-    private final KafkaTemplate<String, CreatePaymentRenegotiationRequest> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(final String topic,
                      final String key,
-                     final CreatePaymentRenegotiationRequest message) {
+                     final String message) {
         log.info("sending message to topic {} with key {} - message {}", topic, key, message);
         kafkaTemplate.send(topic, key, message)
                 .addCallback(handleSuccess(topic, key, message), handleFailure(topic, key, message));
     }
 
-    private SuccessCallback<? super SendResult<String, CreatePaymentRenegotiationRequest>> handleSuccess(final String topic, final String key, final CreatePaymentRenegotiationRequest message) {
+    private SuccessCallback<? super SendResult<String, String>> handleSuccess(final String topic, final String key, final String message) {
         return result -> log.info("message sent to topic {} with key {} - message {}", topic, key, message);
     }
 
-    private FailureCallback handleFailure(final String topic, final String key, final CreatePaymentRenegotiationRequest message) {
+    private FailureCallback handleFailure(final String topic, final String key, final String message) {
         return exception -> log.error("error sending message to topic {} with key {} - error {} message {}", topic, key, exception, message);
     }
 }

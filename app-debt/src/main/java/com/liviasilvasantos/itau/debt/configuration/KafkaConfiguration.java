@@ -12,18 +12,18 @@ import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
 @RequiredArgsConstructor
-public class PaymentKafkaConfiguration {
+public class KafkaConfiguration {
 
     private final KafkaProperties kafkaProperties;
 
     @Bean
-    public ProducerFactory<String, CreatePaymentRenegotiationRequest> producerFactory(final KafkaProperties kafkaProperties) {
+    public ProducerFactory<String, String> producerFactory() {
         val configs = kafkaProperties.buildProducerProperties();
         return new DefaultKafkaProducerFactory<>(configs);
     }
 
     @Bean
-    public KafkaTemplate<String, CreatePaymentRenegotiationRequest> kafkaTemplate(final ProducerFactory<String, CreatePaymentRenegotiationRequest> producerFactory) {
+    public KafkaTemplate<String, String> kafkaTemplate(final ProducerFactory<String, String> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

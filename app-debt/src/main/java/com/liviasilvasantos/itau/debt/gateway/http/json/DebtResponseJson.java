@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Builder
 @Getter
@@ -29,7 +30,13 @@ public class DebtResponseJson {
                 .totalInCents(debt.getTotalInCents())
                 .createdAt(debt.getCreatedAt())
                 .status(debt.getStatus())
-                .renegotiation(RenegotiationResponseJson.of(debt.getRenegotiation()))
+                .renegotiation(buildRenegotiation(debt))
                 .build();
+    }
+
+    private static RenegotiationResponseJson buildRenegotiation(Debt debt) {
+        return Optional.ofNullable(debt.getRenegotiation())
+                .map(renegotiation -> RenegotiationResponseJson.of(renegotiation))
+                .orElse(null);
     }
 }

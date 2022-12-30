@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class DebtJson {
 
-    @NotBlank(message = "Code should not be empty")
+    @NotBlank(message = "Customer id should not be empty")
     private String customerId;
     @NotNull(message = "Total In Cents should not be empty")
     private Long totalInCents;
