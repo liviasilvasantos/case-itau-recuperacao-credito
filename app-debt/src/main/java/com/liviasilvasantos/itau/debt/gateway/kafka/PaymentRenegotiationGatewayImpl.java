@@ -1,10 +1,8 @@
 package com.liviasilvasantos.itau.debt.gateway.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liviasilvasantos.itau.debt.domain.Debt;
 import com.liviasilvasantos.itau.debt.gateway.PaymentRenegotiationGateway;
-import com.liviasilvasantos.itau.debt.gateway.kafka.request.CreatePaymentRenegotiationRequest;
+import com.liviasilvasantos.itau.debt.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class PaymentRenegotiationGatewayImpl implements PaymentRenegotiationGateway {
 
     private final KafkaProducer kafkaProducer;
-    private final ObjectMapper objectMapper;
+    private final JsonUtils jsonUtils;
 
     @Value("${spring.kafka.topics.payment-renegotiation-request}")
     private String topicRequestPaymentRenegotiation;
@@ -28,11 +26,7 @@ public class PaymentRenegotiationGatewayImpl implements PaymentRenegotiationGate
                 message);
     }
 
-    private String buildMessage(Debt debt) {
-        try {
-            return objectMapper.writeValueAsString(CreatePaymentRenegotiationRequest.of(debt));
-        } catch (final JsonProcessingException exception) {
-            throw new RuntimeException(exception);
-        }
+    private String buildMessage(final Debt debt) {
+        return jsonUtils.toJson(debt);
     }
 }
