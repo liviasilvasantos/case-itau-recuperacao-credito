@@ -16,7 +16,6 @@ public class DebtDomainConverter implements Converter<DebtJson, Debt> {
     @Override
     public Debt convert(final DebtJson debtJson) {
         return Debt.builder()
-                .status(debtJson.getStatus())
                 .customerId(debtJson.getCustomerId())
                 .totalInCents(debtJson.getTotalInCents())
                 .createdAt(LocalDateTime.now())

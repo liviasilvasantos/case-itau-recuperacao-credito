@@ -18,7 +18,7 @@ public class RenegotiateDebt {
     private final PaymentRenegotiationGateway paymentRenegotiationGateway;
 
     public Debt execute(final String id, final Renegotiation renegotiation) {
-        log.info("renegotiating for debt id {}", id);
+        log.info("renegotiating for debt id:}", id);
         val debt = getDebtById.execute(id);
         val debtWithRenegotiation = saveDebt.execute(debt.withRenegotiation(renegotiation));
 

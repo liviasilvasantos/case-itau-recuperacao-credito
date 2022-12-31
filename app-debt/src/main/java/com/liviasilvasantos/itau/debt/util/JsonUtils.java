@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JsonUtils {F
+public class JsonUtils {
 
     private final ObjectMapper objectMapper;
 

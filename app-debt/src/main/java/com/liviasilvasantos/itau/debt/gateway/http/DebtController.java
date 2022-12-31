@@ -68,7 +68,7 @@ public class DebtController {
     }
 
     @Operation(summary = "Create a debt")
-    @PatchMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DebtResponseJson> save(@Parameter(description = "debt to be created") @RequestBody @Valid final DebtJson debtJson) {
         val debt = saveDebt.execute(debtDomainConverter.convert(debtJson));
         return ResponseEntity.created(buildCustomerUri(debt)).body(DebtResponseJson.of(debt));
@@ -82,7 +82,7 @@ public class DebtController {
     }
 
     @Operation(summary = "Add a renegotiation to a debt by its id")
-    @PostMapping(value = "/{id}/renegotiation", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{id}/renegotiation", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DebtResponseJson> renegotiation(@Parameter(description = "id of a debt to be renegotiated") @PathVariable(value = "id") final String id,
                                                           @Parameter(description = "renegotiation to be added to a debt") @RequestBody @Valid final RenegotiationJson renegotiationJson) {
         val debt = renegotiateDebt.execute(id, renegotiationDomainConverter.convert(renegotiationJson));

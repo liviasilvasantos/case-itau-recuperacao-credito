@@ -19,6 +19,5 @@ public class DebtJson {
     private String customerId;
     @NotNull(message = "Total In Cents should not be empty")
     private Long totalInCents;
-    @NotNull(message = "Status should not be empty")
-    private Status status;
+
 }
