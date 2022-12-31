@@ -1,5 +1,6 @@
 package com.liviasilvasantos.itau.payment.gateway.kafka;
 
+import com.liviasilvasantos.itau.payment.domain.renegotiation.PaymentRenegotiation;
 import com.liviasilvasantos.itau.payment.gateway.kafka.request.CreatePaymentRenegotiationRequest;
 import com.liviasilvasantos.itau.payment.usecase.CreatePaymentRenegotiation;
 import com.liviasilvasantos.itau.payment.util.JsonUtils;
@@ -37,8 +38,8 @@ public class CreatePaymentRenegotiationListener {
 
     private void consumeMessage(final String message) {
         val createPaymentRenegotiationRequest = jsonUtils.toObject(message, CreatePaymentRenegotiationRequest.class);
-        val createPaymentRenegotiation = jsonUtils.fromObject(createPaymentRenegotiationRequest, CreatePaymentRenegotiation.class);
+        val paymentRenegotiation = jsonUtils.fromObject(createPaymentRenegotiationRequest, PaymentRenegotiation.class);
 
-        createPaymentRenegotiation.execute(createPaymentRenegotiation);
+        createPaymentRenegotiation.execute(paymentRenegotiation);
     }
 }

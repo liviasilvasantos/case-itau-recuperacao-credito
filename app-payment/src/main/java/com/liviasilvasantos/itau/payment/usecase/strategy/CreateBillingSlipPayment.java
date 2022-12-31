@@ -1,11 +1,11 @@
 package com.liviasilvasantos.itau.payment.usecase.strategy;
 
+import com.liviasilvasantos.itau.payment.domain.BillingSlipPayment;
 import com.liviasilvasantos.itau.payment.domain.Payment;
 import com.liviasilvasantos.itau.payment.domain.PaymentContext;
 import com.liviasilvasantos.itau.payment.domain.PaymentType;
-import com.liviasilvasantos.itau.payment.domain.PixPayment;
 import com.liviasilvasantos.itau.payment.gateway.PaymentGateway;
-import com.liviasilvasantos.itau.payment.usecase.GeneratePixCode;
+import com.liviasilvasantos.itau.payment.usecase.GenerateBillingSlip;
 import com.liviasilvasantos.itau.payment.util.BigDecimalUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,44 +17,45 @@ import java.time.LocalDateTime;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class CreatePixPayment implements CreatePaymentStrategy {
+public class CreateBillingSlipPayment implements CreatePaymentStrategy {
 
-    private final Integer PIX_EXPIRATION_HOUR = 2;
-    private final GeneratePixCode generatePixCode;
+    private final GenerateBillingSlip generateBillingSlip;
     private final PaymentGateway paymentGateway;
 //    private final NotificationGateway notificationGateway;
 
     @Override
     public boolean canExecute(final PaymentContext context) {
-        return context.getPaymentType() == "PIX";
+        return context.getPaymentType() == "BILLING_SLIP";
     }
 
     @Override
     public void execute(final PaymentContext context) {
-        //TODO pix: gerar pix, atualizar payment, gerar mensagem no topico de notificao
-        paymentGateway.save(buildPayment(context));
+        //TODO boleto: gerar boleto, atualizar payment, gerar mensagem no topico de notificao
+        val payment = paymentGateway.save(buildPayment(context));
 //        notificationGateway.send(); //TODO topic ??? payload ???
     }
 
     private Payment buildPayment(final PaymentContext context) {
-        val pixPayment = Payment.builder()
+        val billingSlipPayment = Payment.builder()
                 .createdAt(LocalDateTime.now())
-                .type(PaymentType.PIX)
+                .type(PaymentType.BILLING_SLIP)
                 .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()))
-                .pixInfo(buildPixPayment(context))
+                .billingSlipInfo(buildBillingSlipPayment(context))
                 .totalDiscountInCents(BigDecimalUtils.bigDecimalToCents(context.getTotalDiscountValue()))
                 .totalValueInCents(BigDecimalUtils.bigDecimalToCents(context.getCalculatedRenegotiationValue()))
                 .build();
         //TODO add more info?
-        return pixPayment;
+        return billingSlipPayment;
     }
 
-    private PixPayment buildPixPayment(final PaymentContext context) {
-        val pixCode = generatePixCode.execute(context.getCalculatedRenegotiationValue());
-        return PixPayment.builder()
-                .pixCode(pixCode.getPixCode())
-                .pixLink(pixCode.getPixLink())
-                .expiresAt(pixCode.getExpiresAt())
+    private BillingSlipPayment buildBillingSlipPayment(final PaymentContext context) {
+        val billingSlip = generateBillingSlip.execute(context.getCalculatedRenegotiationValue());
+        return BillingSlipPayment.builder()
+                .bankCode(billingSlip.getBankCode())
+                .barCode(billingSlip.getBarCode())
+                .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()).toLocalDate())
+                .issuer(billingSlip.getIssuer())
+                .number(billingSlip.getNumber())
                 .build();
     }
 }

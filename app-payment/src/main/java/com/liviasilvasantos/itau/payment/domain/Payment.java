@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,10 +22,13 @@ public class Payment {
     private String catalogId;
     private PaymentType type;
     private Long totalValueInCents;
-    private Integer numberOfInstallments;
     private Long totalDiscountInCents;
     private Double discountValue;
-    private LocalDate expiresAt;
+    private LocalDateTime expiresAt;
     private LocalDateTime createdAt;
+    private Integer numberOfInstallments;
     private Set<Installment> installments;
+    private PixPayment pixInfo;
+    private CreditCardPayment creditCardInfo;
+    private BillingSlipPayment billingSlipInfo;
 }

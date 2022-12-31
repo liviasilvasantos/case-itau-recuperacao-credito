@@ -10,5 +10,6 @@ public class CreatePaymentRenegotiationRequest {
     private String catalogId;
     private String customerId;
     private String debtId;
+    private Long totalRenegotiationValueInCents;
 
 }

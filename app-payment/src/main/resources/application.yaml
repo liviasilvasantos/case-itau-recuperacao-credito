@@ -6,6 +6,7 @@ springdoc:
   swagger-ui:
     operationsSorter: method
 
+#Mongo and Kafka
 spring:
   data:
     mongodb:
@@ -24,3 +25,18 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringDeserializer
     topics:
       payment-renegotiation-request: payment.renegotiation.create.request
+
+#Resilience4j
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 50
+        failureRateThreshold: 40
+        minimumNumberOfCalls: 5
+        ignoreExceptions:
+          - feign.FeignException.FeignClientException
+    instances:
+      catalogClient:
+        baseConfig: default
