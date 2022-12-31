@@ -8,6 +8,7 @@ import com.liviasilvasantos.itau.catalog.usecase.DeleteCatalogById;
 import com.liviasilvasantos.itau.catalog.usecase.GetAllCatalogs;
 import com.liviasilvasantos.itau.catalog.usecase.GetCatalogById;
 import com.liviasilvasantos.itau.catalog.usecase.SaveCatalog;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -35,12 +36,14 @@ public class CatalogController {
 
     private final CatalogDomainConverter catalogDomainConverter;
 
+    @Operation(summary = "Gets a catalog by its id")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CatalogResponseJson> findById(@PathVariable("id") final String id) {
         val catalog = getCatalogById.execute(id);
         return ResponseEntity.ok(CatalogResponseJson.of(catalog));
     }
 
+    @Operation(summary = "Gets all catalogs")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CatalogResponseJson>> findAll(@RequestParam(value = "page", defaultValue = "0") final int page,
                                                              @RequestParam(value = "size", defaultValue = "5") final int size) {
@@ -51,12 +54,14 @@ public class CatalogController {
         return ResponseEntity.ok(catalogsJson);
     }
 
+    @Operation(summary = "Creates a pending catalog")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CatalogResponseJson> save(@RequestBody @Valid final CatalogJson catalogJson) {
         val catalog = saveCatalog.execute(catalogDomainConverter.convert(catalogJson));
         return ResponseEntity.created(buildCustomerUri(catalog)).body(CatalogResponseJson.of(catalog));
     }
 
+    @Operation(summary = "Deletes a catalog by its id")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable(value = "id") final String id) {
         deleteCatalogById.execute(id);
