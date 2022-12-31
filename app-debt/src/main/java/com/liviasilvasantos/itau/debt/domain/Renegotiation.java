@@ -14,6 +14,6 @@ public class Renegotiation {
 
     private String catalogId;
     private LocalDateTime createdAt;
-    private Long totalRenegotiationInCents;
+    private Long totalRenegotiationValueInCents;
     
 }

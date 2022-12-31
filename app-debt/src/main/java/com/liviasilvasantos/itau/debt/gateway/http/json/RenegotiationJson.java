@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 public class RenegotiationJson {
 
     private String catalogId;
-    private Long totalRenegotiationInCents;
+    private Long totalRenegotiationValueInCents;
     
 }

@@ -15,7 +15,7 @@ public class RenegotiationDomainConverter implements Converter<RenegotiationJson
     @Override
     public Renegotiation convert(final RenegotiationJson renegotiationJson) {
         return Renegotiation.builder()
-                .totalRenegotiationInCents(renegotiationJson.getTotalRenegotiationInCents())
+                .totalRenegotiationValueInCents(renegotiationJson.getTotalRenegotiationValueInCents())
                 .catalogId(renegotiationJson.getCatalogId())
                 .createdAt(LocalDateTime.now())
                 .build();

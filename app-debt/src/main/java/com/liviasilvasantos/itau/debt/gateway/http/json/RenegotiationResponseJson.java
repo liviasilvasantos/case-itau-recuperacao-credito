@@ -16,13 +16,13 @@ public class RenegotiationResponseJson {
 
     private String catalogId;
     private LocalDateTime createdAt;
-    private Long totalRenegotiationInCents;
+    private Long totalRenegotiationValueInCents;
 
     public static RenegotiationResponseJson of(final Renegotiation renegotiation) {
         return RenegotiationResponseJson.builder()
                 .catalogId(renegotiation.getCatalogId())
                 .createdAt(renegotiation.getCreatedAt())
-                .totalRenegotiationInCents(renegotiation.getTotalRenegotiationInCents())
+                .totalRenegotiationValueInCents(renegotiation.getTotalRenegotiationValueInCents())
                 .build();
     }
 }
