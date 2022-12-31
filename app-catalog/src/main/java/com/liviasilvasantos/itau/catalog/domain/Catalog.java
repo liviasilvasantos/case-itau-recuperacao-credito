@@ -18,9 +18,11 @@ public class Catalog {
     private String id;
     private String code;
     private String description;
-    private String deadline;
+    private Integer expirationInMinutes;
     private PaymentType paymentType;
     private double discount;
     private LocalDateTime createdAt;
+    private Integer numberOfInstallments;
     private Status status;
+
 }

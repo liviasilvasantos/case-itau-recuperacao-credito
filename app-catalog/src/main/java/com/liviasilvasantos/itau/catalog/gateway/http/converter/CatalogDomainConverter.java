@@ -18,7 +18,7 @@ public class CatalogDomainConverter implements Converter<CatalogJson, Catalog> {
         return Catalog.builder()
                 .code(catalogJson.getCode())
                 .description(catalogJson.getDescription())
-                .deadline(catalogJson.getDeadline())
+                .expirationInMinutes(catalogJson.getExpirationInMinutes())
                 .paymentType(catalogJson.getPaymentType())
                 .discount(catalogJson.getDiscount())
                 .createdAt(LocalDateTime.now())

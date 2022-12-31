@@ -19,10 +19,11 @@ public class CatalogResponseJson {
     private String id;
     private String code;
     private String description;
-    private String deadline;
+    private Integer expirationInMinutes;
     private PaymentType paymentType;
     private double discount;
     private LocalDateTime createdAt;
+    private Integer numberOfInstallments;
     private Status status;
 
     public static CatalogResponseJson of(final Catalog catalog) {
@@ -30,11 +31,12 @@ public class CatalogResponseJson {
                 .id(catalog.getId())
                 .code(catalog.getCode())
                 .description(catalog.getDescription())
-                .deadline(catalog.getDeadline())
+                .expirationInMinutes(catalog.getExpirationInMinutes())
                 .paymentType(catalog.getPaymentType())
                 .discount(catalog.getDiscount())
                 .createdAt(catalog.getCreatedAt())
                 .status(catalog.getStatus())
+                .numberOfInstallments(catalog.getNumberOfInstallments())
                 .build();
     }
 }

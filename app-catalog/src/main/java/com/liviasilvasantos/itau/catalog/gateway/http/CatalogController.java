@@ -63,7 +63,7 @@ public class CatalogController {
         return ResponseEntity.noContent().build();
     }
 
-    //TODO implement PUT or PATCH
+    //TODO implement update status (activate/deactivate) via PATCH
 
     private static URI buildCustomerUri(final Catalog catalog) {
         val uri = ServletUriComponentsBuilder.fromCurrentRequest()
