@@ -1,14 +1,14 @@
-package com.liviasilvasantos.itau.debt.util;
+package com.liviasilvasantos.itau.payment.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.liviasilvasantos.itau.debt.util.exception.JsonUtilsException;
+import com.liviasilvasantos.itau.payment.util.exception.JsonUtilsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JsonUtils {F
+public class JsonUtils {
 
     private final ObjectMapper objectMapper;
 
@@ -27,4 +27,9 @@ public class JsonUtils {F
             throw new JsonUtilsException("Error converting json: " + json + " to class " + clazz.getNestHost(), exception);
         }
     }
+
+    public <T> T fromObject(final Object object, final Class<T> clazz) {
+        return objectMapper.convertValue(object, clazz);
+    }
+
 }
