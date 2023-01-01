@@ -4,5 +4,6 @@ public enum NotificationType {
 
     SMS,
     WHATSAPP,
-    CAC
+    CAC,
+    EMAIL
 }

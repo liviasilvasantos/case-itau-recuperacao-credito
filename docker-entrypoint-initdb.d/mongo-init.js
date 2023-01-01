@@ -31,18 +31,6 @@ dbNotification.createUser({
         db: "dbNotification"
     }]
 });
-dbNotification.notifications.insertMany([
-    {
-        type: "SMS",
-        createdAt: new Date(Date.now()),
-        customerEmail: "liviasantos@email.com"
-    },
-    {
-        type: "WHATSAPP",
-        createdAt: new Date(Date.now()),
-        customerEmail: "liviasantos@email.com"
-    }
-]);
 
 //dbCatalog
 dbCatalog = new Mongo().getDB("dbCatalog");

@@ -1,22 +1,27 @@
 package com.liviasilvasantos.itau.notification.gateway.kafka;
 
+import com.liviasilvasantos.itau.notification.gateway.kafka.converter.NotificationRequestToDomainConverter;
+import com.liviasilvasantos.itau.notification.gateway.kafka.request.NotificationRequest;
+import com.liviasilvasantos.itau.notification.usecase.SendNotification;
+import com.liviasilvasantos.itau.notification.util.JsonUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.DltHandler;
+import lombok.val;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class NotificationListener {
 
-    @RetryableTopic(attempts = "5",
-            backoff = @Backoff(delay = 1000, multiplier = 2, maxDelay = 5000)
-    )
+    private final SendNotification sendNotification;
+    private final NotificationRequestToDomainConverter toDomainConverter;
+    private final JsonUtils jsonUtils;
+
     @KafkaListener(topics = "${spring.kafka.topics.notification-request}")
     public void onMessage(@Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) String partition,
                           @Header(KafkaHeaders.OFFSET) String offset,
@@ -27,12 +32,14 @@ public class NotificationListener {
                 offset,
                 key,
                 message);
-//        throw new RuntimeException("error while reading message");
-        //TODO use case for notification
+
+        consumeMessage(message);
     }
 
-    @DltHandler
-    public void processMessage(final String message) {
-        log.info("Message will be send to DLT: {}", message);
+    private void consumeMessage(final String message) {
+        val notificationRequest = jsonUtils.toObject(message, NotificationRequest.class);
+        val notification = toDomainConverter.convert(notificationRequest);
+        sendNotification.execute(notification);
     }
+
 }
