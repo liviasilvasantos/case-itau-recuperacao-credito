@@ -23,11 +23,17 @@ spring:
       bootstrap-servers:
         - localhost:9092
       group-id: payment-group
-      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: earliest
+    producer:
+      bootstrap-servers:
+        - localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
     topics:
       payment-renegotiation-request: payment.renegotiation.create.request
+      notification-request: notifications.customer.request
 
 #Resilience4j
 resilience4j:
