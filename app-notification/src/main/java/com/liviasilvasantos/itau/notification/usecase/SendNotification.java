@@ -26,7 +26,7 @@ public class SendNotification {
         val context = buildNotificationContext(notification);
 
         notificationGateway.save(notification);
-        
+
         notificationStrategies.stream()
                 .filter(notificationStrategy -> notificationStrategy.canExecute(context))
                 .findFirst()

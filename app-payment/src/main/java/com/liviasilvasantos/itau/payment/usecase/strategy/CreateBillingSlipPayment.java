@@ -4,7 +4,10 @@ import com.liviasilvasantos.itau.payment.domain.BillingSlipPayment;
 import com.liviasilvasantos.itau.payment.domain.Payment;
 import com.liviasilvasantos.itau.payment.domain.PaymentContext;
 import com.liviasilvasantos.itau.payment.domain.PaymentType;
+import com.liviasilvasantos.itau.payment.gateway.NotificationGateway;
 import com.liviasilvasantos.itau.payment.gateway.PaymentGateway;
+import com.liviasilvasantos.itau.payment.gateway.kafka.request.NotificationEvent;
+import com.liviasilvasantos.itau.payment.gateway.kafka.request.NotificationType;
 import com.liviasilvasantos.itau.payment.usecase.GenerateBillingSlip;
 import com.liviasilvasantos.itau.payment.util.BigDecimalUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +25,7 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
 
     private final GenerateBillingSlip generateBillingSlip;
     private final PaymentGateway paymentGateway;
-//    private final NotificationGateway notificationGateway;
+    private final NotificationGateway notificationGateway;
 
     @Override
     public boolean canExecute(final PaymentContext context) {
@@ -31,9 +34,8 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
 
     @Override
     public void execute(final PaymentContext context) {
-        //TODO boleto: gerar boleto, atualizar payment, gerar mensagem no topico de notificao
         val payment = paymentGateway.save(buildPayment(context));
-//        notificationGateway.send(); //TODO topic ??? payload ???
+        notificationGateway.requestNotification(payment, NotificationType.EMAIL, NotificationEvent.PAYMENT_BILLING_SLIP);
     }
 
     private Payment buildPayment(final PaymentContext context) {
@@ -45,7 +47,6 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
                 .totalDiscountInCents(BigDecimalUtils.bigDecimalToCents(context.getTotalDiscountValue()))
                 .totalValueInCents(BigDecimalUtils.bigDecimalToCents(context.getCalculatedRenegotiationValue()))
                 .build();
-        //TODO add more info?
         return billingSlipPayment;
     }
 

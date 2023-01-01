@@ -4,7 +4,10 @@ import com.liviasilvasantos.itau.payment.domain.Payment;
 import com.liviasilvasantos.itau.payment.domain.PaymentContext;
 import com.liviasilvasantos.itau.payment.domain.PaymentType;
 import com.liviasilvasantos.itau.payment.domain.PixPayment;
+import com.liviasilvasantos.itau.payment.gateway.NotificationGateway;
 import com.liviasilvasantos.itau.payment.gateway.PaymentGateway;
+import com.liviasilvasantos.itau.payment.gateway.kafka.request.NotificationEvent;
+import com.liviasilvasantos.itau.payment.gateway.kafka.request.NotificationType;
 import com.liviasilvasantos.itau.payment.usecase.GeneratePixCode;
 import com.liviasilvasantos.itau.payment.util.BigDecimalUtils;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +26,7 @@ public class CreatePixPayment implements CreatePaymentStrategy {
     private final Integer PIX_EXPIRATION_HOUR = 2;
     private final GeneratePixCode generatePixCode;
     private final PaymentGateway paymentGateway;
-//    private final NotificationGateway notificationGateway;
+    private final NotificationGateway notificationGateway;
 
     @Override
     public boolean canExecute(final PaymentContext context) {
@@ -32,9 +35,8 @@ public class CreatePixPayment implements CreatePaymentStrategy {
 
     @Override
     public void execute(final PaymentContext context) {
-        //TODO pix: gerar pix, atualizar payment, gerar mensagem no topico de notificao
-        paymentGateway.save(buildPayment(context));
-//        notificationGateway.send(); //TODO topic ??? payload ???
+        val payment = paymentGateway.save(buildPayment(context));
+        notificationGateway.requestNotification(payment, NotificationType.WHATSAPP, NotificationEvent.PAYMENT_PIX);
     }
 
     private Payment buildPayment(final PaymentContext context) {
@@ -46,7 +48,6 @@ public class CreatePixPayment implements CreatePaymentStrategy {
                 .totalDiscountInCents(BigDecimalUtils.bigDecimalToCents(context.getTotalDiscountValue()))
                 .totalValueInCents(BigDecimalUtils.bigDecimalToCents(context.getCalculatedRenegotiationValue()))
                 .build();
-        //TODO add more info?
         return pixPayment;
     }
 
