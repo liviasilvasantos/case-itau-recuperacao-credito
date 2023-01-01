@@ -9,6 +9,7 @@ import com.liviasilvasantos.itau.catalog.usecase.GetAllCatalogs;
 import com.liviasilvasantos.itau.catalog.usecase.GetCatalogById;
 import com.liviasilvasantos.itau.catalog.usecase.SaveCatalog;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -38,15 +39,15 @@ public class CatalogController {
 
     @Operation(summary = "Gets a catalog by its id")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CatalogResponseJson> findById(@PathVariable("id") final String id) {
+    public ResponseEntity<CatalogResponseJson> findById(@Parameter(description = "id of a catalog to be searched") @PathVariable("id") final String id) {
         val catalog = getCatalogById.execute(id);
         return ResponseEntity.ok(CatalogResponseJson.of(catalog));
     }
 
     @Operation(summary = "Gets all catalogs")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CatalogResponseJson>> findAll(@RequestParam(value = "page", defaultValue = "0") final int page,
-                                                             @RequestParam(value = "size", defaultValue = "5") final int size) {
+    public ResponseEntity<List<CatalogResponseJson>> findAll(@Parameter(description = "number of the page") @RequestParam(value = "page", defaultValue = "0") final int page,
+                                                             @Parameter(description = "size of the page") @RequestParam(value = "size", defaultValue = "5") final int size) {
         val catalogs = getAllCatalogs.execute(PageRequest.of(page, size));
         val catalogsJson = catalogs.stream()
                 .map(catalog -> CatalogResponseJson.of(catalog))
