@@ -4,6 +4,7 @@ import com.liviasilvasantos.itau.notification.domain.Notification;
 import com.liviasilvasantos.itau.notification.domain.NotificationContext;
 import com.liviasilvasantos.itau.notification.domain.customer.Customer;
 import com.liviasilvasantos.itau.notification.gateway.CustomerGateway;
+import com.liviasilvasantos.itau.notification.gateway.NotificationGateway;
 import com.liviasilvasantos.itau.notification.usecase.strategy.NotificationStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,13 @@ public class SendNotification {
 
     private final List<NotificationStrategy> notificationStrategies;
     private final CustomerGateway customerGateway;
+    private final NotificationGateway notificationGateway;
 
     public void execute(final Notification notification) {
         val context = buildNotificationContext(notification);
 
+        notificationGateway.save(notification);
+        
         notificationStrategies.stream()
                 .filter(notificationStrategy -> notificationStrategy.canExecute(context))
                 .findFirst()

@@ -26,11 +26,6 @@ public class NotificationGatewayImpl implements NotificationGateway {
     }
 
     @Override
-    public Page<Notification> findByCustomerEmail(final String customerEmail, final Pageable pageable) {
-        return notificationRepository.findByCustomerEmail(customerEmail, pageable);
-    }
-
-    @Override
     public Notification save(final Notification notification) {
         return notificationRepository.save(notification);
     }

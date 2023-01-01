@@ -12,8 +12,6 @@ public interface NotificationGateway {
 
     Optional<Notification> findById(String id);
 
-    Page<Notification> findByCustomerEmail(String customerEmail, Pageable pageable);
-
     Notification save(Notification customer);
 
     void remove(Notification customer);

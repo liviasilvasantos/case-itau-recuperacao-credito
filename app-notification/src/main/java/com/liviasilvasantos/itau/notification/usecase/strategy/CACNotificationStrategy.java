@@ -1,11 +1,13 @@
 package com.liviasilvasantos.itau.notification.usecase.strategy;
 
 import com.liviasilvasantos.itau.notification.domain.NotificationContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CACNotificationStrategy implements NotificationStrategy {
 
     @Override
