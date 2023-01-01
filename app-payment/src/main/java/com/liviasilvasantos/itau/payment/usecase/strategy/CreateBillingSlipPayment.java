@@ -10,6 +10,7 @@ import com.liviasilvasantos.itau.payment.util.BigDecimalUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
 
     @Override
     public boolean canExecute(final PaymentContext context) {
-        return context.getPaymentType() == "BILLING_SLIP";
+        return StringUtils.equals(context.getPaymentType(), "BILLING_SLIP");
     }
 
     @Override

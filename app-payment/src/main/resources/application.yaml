@@ -17,12 +17,15 @@ spring:
       database: dbPayment
       uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
   kafka:
+    listener:
+      concurrency: 2
     consumer:
       bootstrap-servers:
         - localhost:9092
       group-id: payment-group
       key-serializer: org.apache.kafka.common.serialization.StringDeserializer
       value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
     topics:
       payment-renegotiation-request: payment.renegotiation.create.request
 

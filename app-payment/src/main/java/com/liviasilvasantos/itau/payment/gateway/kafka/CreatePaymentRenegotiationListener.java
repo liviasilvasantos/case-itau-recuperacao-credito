@@ -21,7 +21,8 @@ public class CreatePaymentRenegotiationListener {
     private final JsonUtils jsonUtils;
     private final CreatePaymentRenegotiation createPaymentRenegotiation;
 
-    @KafkaListener(topics = "payment-renegotiation-request")
+    @KafkaListener(topics = "${spring.kafka.topics.payment-renegotiation-request}",
+        containerFactory = "kafkaContainerFactory")
     public void onMessage(
             @Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) String partition,
             @Header(KafkaHeaders.OFFSET) String offset,
