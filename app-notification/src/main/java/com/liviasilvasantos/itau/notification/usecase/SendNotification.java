@@ -2,6 +2,8 @@ package com.liviasilvasantos.itau.notification.usecase;
 
 import com.liviasilvasantos.itau.notification.domain.Notification;
 import com.liviasilvasantos.itau.notification.domain.NotificationContext;
+import com.liviasilvasantos.itau.notification.domain.customer.Customer;
+import com.liviasilvasantos.itau.notification.gateway.CustomerGateway;
 import com.liviasilvasantos.itau.notification.usecase.strategy.NotificationStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import java.util.List;
 public class SendNotification {
 
     private final List<NotificationStrategy> notificationStrategies;
+    private final CustomerGateway customerGateway;
 
     public void execute(final Notification notification) {
         val context = buildNotificationContext(notification);
@@ -28,6 +31,13 @@ public class SendNotification {
     }
 
     private NotificationContext buildNotificationContext(final Notification notification) {
-        return NotificationContext.builder().notification(notification).build();
+        return NotificationContext.builder()
+                .notification(notification)
+                .customer(getCustomer(notification))
+                .build();
+    }
+
+    private Customer getCustomer(final Notification notification) {
+        return customerGateway.findById(notification.getCustomerId());
     }
 }

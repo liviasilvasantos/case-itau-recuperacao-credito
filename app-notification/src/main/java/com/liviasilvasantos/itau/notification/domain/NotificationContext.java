@@ -1,5 +1,6 @@
 package com.liviasilvasantos.itau.notification.domain;
 
+import com.liviasilvasantos.itau.notification.domain.customer.Customer;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,5 +9,5 @@ import lombok.Data;
 public class NotificationContext {
 
     private Notification notification;
-
+    private Customer customer;
 }

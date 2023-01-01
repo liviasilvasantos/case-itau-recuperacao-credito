@@ -15,7 +15,7 @@ public class CACNotificationStrategy implements NotificationStrategy {
 
     @Override
     public void execute(NotificationContext context) {
-        log.info("sending CAC to: {} for: {} with message: {}", context.getNotification().getCustomerEmail(),
+        log.info("sending CAC to: {} for: {} with message: {}", context.getCustomer().getEmail(),
                 context.getNotification().getEvent(),
                 context.getNotification().getMessage());
     }

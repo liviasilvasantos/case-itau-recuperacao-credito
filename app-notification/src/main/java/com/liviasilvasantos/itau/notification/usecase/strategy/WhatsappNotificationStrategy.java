@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 public class WhatsappNotificationStrategy implements NotificationStrategy {
 
     @Override
-    public boolean canExecute(NotificationContext context) {
+    public boolean canExecute(final NotificationContext context) {
         return context.getNotification().isWhatsApp();
     }
 
     @Override
-    public void execute(NotificationContext context) {
-        log.info("sending Whatsapp to: {} for: {} with message: {}", context.getNotification().getCustomerEmail(),
+    public void execute(final NotificationContext context) {
+        log.info("sending Whatsapp to: {} for: {} with message: {}", context.getCustomer().getMobilePhone(),
                 context.getNotification().getEvent(),
                 context.getNotification().getMessage());
     }
+
+
 }

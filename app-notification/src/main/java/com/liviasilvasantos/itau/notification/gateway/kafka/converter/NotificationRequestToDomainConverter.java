@@ -15,7 +15,6 @@ public class NotificationRequestToDomainConverter implements Converter<Notificat
     public Notification convert(final NotificationRequest notificationRequest) {
         return Notification.builder()
                 .customerId(notificationRequest.getCustomerId())
-                .customerEmail(notificationRequest.getCustomerEmail())
                 .event(notificationRequest.getEvent())
                 .type(notificationRequest.getType())
                 .message(notificationRequest.getMessage())

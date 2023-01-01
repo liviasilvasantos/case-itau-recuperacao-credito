@@ -1,4 +1,4 @@
-package com.liviasilvasantos.itau.catalog.gateway.exception;
+package com.liviasilvasantos.itau.customer.gateway.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(value = {CatalogNotFoundException.class})
+    @ExceptionHandler(value = {CustomerNotFoundException.class})
     public ResponseEntity<ErrorMessage> handleNotFound(final RuntimeException exception,
                                                        final WebRequest request) {
         val errorMessage = buildErrorMessage(exception, request, HttpStatus.NOT_FOUND, null);

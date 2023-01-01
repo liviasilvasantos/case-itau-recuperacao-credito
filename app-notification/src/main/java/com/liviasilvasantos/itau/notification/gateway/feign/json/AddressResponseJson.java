@@ -1,12 +1,14 @@
-package com.liviasilvasantos.itau.customer.domain;
+package com.liviasilvasantos.itau.notification.gateway.feign.json;
 
-import lombok.*;
+import com.liviasilvasantos.itau.notification.domain.customer.AddressType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class AddressResponseJson {
 
     private AddressType type;
     private String street;

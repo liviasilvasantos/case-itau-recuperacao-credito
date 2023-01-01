@@ -12,11 +12,30 @@ dbCustomer.createUser({
 dbCustomer.customers.insertMany([
     {
         name: 'Lívia Santos',
-        email: 'liviasantos@email.com'
+        email: 'liviasantos@email.com',
+        createdAt: new Date(Date.now()),
+        phones: [{
+            type: "MOBILE",
+            countryCode: 55,
+            code: "19",
+            number: "991112233"
+        }, {
+            type: "HOME",
+            countryCode: 55,
+            code: "19",
+            number: "31112233"
+        }]
     },
     {
         name: 'Rafael Sousa',
-        email: 'rafaelsousa@email.com'
+        email: 'rafaelsousa@email.com',
+        createdAt: new Date(Date.now()),
+        phones: [{
+            type: "HOME",
+            countryCode: 55,
+            code: "19",
+            number: "31112244"
+        }]
     }  
 ]);
 

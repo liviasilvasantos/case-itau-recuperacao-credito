@@ -1,9 +1,8 @@
-package com.liviasilvasantos.itau.customer.domain;
+package com.liviasilvasantos.itau.notification.domain.customer;
 
 import lombok.*;
 
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Phone {

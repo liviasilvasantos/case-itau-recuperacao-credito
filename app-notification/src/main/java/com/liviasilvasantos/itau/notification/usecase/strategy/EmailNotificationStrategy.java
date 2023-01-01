@@ -15,7 +15,7 @@ public class EmailNotificationStrategy implements NotificationStrategy {
 
     @Override
     public void execute(NotificationContext context) {
-        log.info("sending E-mail to: {} for:{} with message: {}", context.getNotification().getCustomerEmail(),
+        log.info("sending E-mail to: {} for:{} with message: {}", context.getCustomer().getEmail(),
                 context.getNotification().getEvent(),
                 context.getNotification().getMessage());
     }

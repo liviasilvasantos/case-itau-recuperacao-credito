@@ -1,8 +1,11 @@
-package com.liviasilvasantos.itau.customer.domain;
+package com.liviasilvasantos.itau.notification.domain.customer;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.With;
 
-@Getter
+@With
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

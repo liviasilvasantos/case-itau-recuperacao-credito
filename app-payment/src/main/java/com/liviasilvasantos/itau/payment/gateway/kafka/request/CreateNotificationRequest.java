@@ -19,7 +19,6 @@ public class CreateNotificationRequest {
                                                final NotificationType notificationType,
                                                final NotificationEvent notificationEvent) {
         return CreateNotificationRequest.builder()
-//                .customerEmail(payment.gec) //TODO
                 .customerId(payment.getCustomerId())
                 .type(notificationType)
                 .event(notificationEvent)

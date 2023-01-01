@@ -10,7 +10,6 @@ import lombok.Data;
 public class NotificationRequest {
 
     private String customerId;
-    private String customerEmail;
     private NotificationType type;
     private NotificationEvent event;
     private String message;

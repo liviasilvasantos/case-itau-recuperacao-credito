@@ -16,7 +16,6 @@ public class Notification {
 
     @Id
     private String id;
-    private String customerEmail;
     private String customerId;
     private NotificationType type;
     private NotificationEvent event;

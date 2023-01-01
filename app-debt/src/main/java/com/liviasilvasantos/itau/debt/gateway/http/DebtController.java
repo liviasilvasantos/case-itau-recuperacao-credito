@@ -67,14 +67,14 @@ public class DebtController {
         return ResponseEntity.ok(debtsJson);
     }
 
-    @Operation(summary = "Create a debt")
+    @Operation(summary = "Creates a debt")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DebtResponseJson> save(@Parameter(description = "debt to be created") @RequestBody @Valid final DebtJson debtJson) {
         val debt = saveDebt.execute(debtDomainConverter.convert(debtJson));
         return ResponseEntity.created(buildCustomerUri(debt)).body(DebtResponseJson.of(debt));
     }
 
-    @Operation(summary = "Delete a debt by its id")
+    @Operation(summary = "Deletes a debt by its id")
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@Parameter(description = "id of a debt to be deleted") @PathVariable(value = "id") final String id) {
         deleteDebtById.execute(id);

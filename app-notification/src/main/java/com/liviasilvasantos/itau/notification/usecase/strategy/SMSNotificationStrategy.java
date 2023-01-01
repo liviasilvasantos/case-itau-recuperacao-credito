@@ -15,7 +15,7 @@ public class SMSNotificationStrategy implements NotificationStrategy {
 
     @Override
     public void execute(NotificationContext context) {
-        log.info("sending SMS to: {} for: {} with message: {}", context.getNotification().getCustomerEmail(),
+        log.info("sending SMS to: {} for: {} with message: {}", context.getCustomer().getMobilePhone(),
                 context.getNotification().getEvent(),
                 context.getNotification().getMessage());
     }

@@ -22,3 +22,18 @@ spring:
       concurrency: 2
     topics:
       notification-request: notifications.customer.request
+
+#Resilience4j
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 50
+        failureRateThreshold: 40
+        minimumNumberOfCalls: 5
+        ignoreExceptions:
+          - feign.FeignException.FeignClientException
+    instances:
+      customerClient:
+        baseConfig: default
