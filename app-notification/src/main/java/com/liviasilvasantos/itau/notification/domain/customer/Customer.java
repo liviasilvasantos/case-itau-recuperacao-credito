@@ -31,7 +31,7 @@ public class Customer {
         return CollectionUtils.emptyIfNull(getPhones())
                 .stream().filter(phone -> phone.getType() == PhoneType.MOBILE)
                 .findFirst()
-                .map(phone -> "(%d) %s-s%".formatted(phone.getCountryCode(), phone.getCode(), phone.getNumber()))
+                .map(phone -> "(%d) %s-%s".formatted(phone.getCountryCode(), phone.getCode(), phone.getNumber()))
                 .orElse(null);
     }
 }
