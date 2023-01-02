@@ -41,11 +41,14 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
     private Payment buildPayment(final PaymentContext context) {
         val billingSlipPayment = Payment.builder()
                 .customerId(context.getPaymentRenegotiation().getCustomerId())
+                .debtId(context.getPaymentRenegotiation().getDebtId())
+                .catalogId(context.getPaymentRenegotiation().getCatalogId())
                 .createdAt(LocalDateTime.now())
                 .type(PaymentType.BILLING_SLIP)
                 .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()))
                 .billingSlipInfo(buildBillingSlipPayment(context))
                 .totalDiscountInCents(BigDecimalUtils.bigDecimalToCents(context.getTotalDiscountValue()))
+                .discountValue(context.getCatalog().getDiscount())
                 .totalValueInCents(BigDecimalUtils.bigDecimalToCents(context.getCalculatedRenegotiationValue()))
                 .build();
         return billingSlipPayment;

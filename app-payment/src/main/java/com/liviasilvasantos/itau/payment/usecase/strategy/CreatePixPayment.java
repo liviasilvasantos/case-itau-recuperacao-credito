@@ -42,11 +42,14 @@ public class CreatePixPayment implements CreatePaymentStrategy {
     private Payment buildPayment(final PaymentContext context) {
         val pixPayment = Payment.builder()
                 .customerId(context.getPaymentRenegotiation().getCustomerId())
+                .debtId(context.getPaymentRenegotiation().getDebtId())
+                .catalogId(context.getPaymentRenegotiation().getCatalogId())
                 .createdAt(LocalDateTime.now())
                 .type(PaymentType.PIX)
                 .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()))
                 .pixInfo(buildPixPayment(context))
                 .totalDiscountInCents(BigDecimalUtils.bigDecimalToCents(context.getTotalDiscountValue()))
+                .discountValue(context.getCatalog().getDiscount())
                 .totalValueInCents(BigDecimalUtils.bigDecimalToCents(context.getCalculatedRenegotiationValue()))
                 .build();
         return pixPayment;
