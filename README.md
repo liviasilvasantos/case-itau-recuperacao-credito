@@ -1,4 +1,6 @@
-# Case Itaú - Recuperação de Crédito - Vaga Dev
+# Case Itaú - Recuperação de Crédito
+
+![Debt Renegotiation](./images/case-itau-flow.png?raw=true "Debt Renegotiation")
 
 ## Cenário  
 Em um cenário que você é um engenheiro de sistemas que será encarregado por liderar uma inciativa de modernização de todo um legado dos sistemas de recuperação de crédito (cobrança e renegociação) (legado de 10-20 anos).  
