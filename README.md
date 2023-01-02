@@ -7,11 +7,11 @@ O cenário atual discorre de um sistema monolítico, com alto acoplamento e proc
 
 Com codebase único e stack de tecnologias legadas, algumas limitações de aplicações monolíticas ficam evidentes:
 
-- lentidão para atender demandas de alteração por conta do alto acoplamento
-- dificuldade para fazer deployment, já que uma pequena alteração exigirá deploy do todo e normalmente, esses deploys tendem a demandar um esforço de várias equipes, já que a aplicação não é pequena
-- os testes em ambientes de homologação e produção tendem a ser muito custosos, por demandarem muito esforço, e com isso, demoraram muito tempo
-- a performance é comprometida pois todas as partes do sistema funcionam sob uma mesma stack, não havendo escolhas específicas para cada necessidade
-- o scale para momentos de maior demanda é comprometido pelo alto custo de recurso e esforço, tanto horizontal quanto  verticalmente
+- lentidão para atender demandas de alteração por conta do alto acoplamento;
+- dificuldade para fazer deployment, já que uma pequena alteração exigirá deploy do todo e, normalmente, esses deploys tendem a demandar um esforço de várias equipes, já que a aplicação não é pequena;
+- os testes em ambientes de homologação e produção tendem a ser muito custosos, por demandarem muito esforço, e possivelmente, demoraram muito tempo;
+- a performance é comprometida pois todas as partes do sistema funcionam sob uma mesma stack, não havendo escolhas específicas para cada necessidade;
+- o scale para momentos de maior demanda é comprometido pelo alto custo de recurso e esforço, tanto horizontal quanto verticalmente.
 
 ## Cenário Proposto
 
