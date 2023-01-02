@@ -1,20 +1,19 @@
-title Debt - Create
+title Debt - Renegotiation
 
-Customer->app-debt:/POST Create debt (Status=created)
-Customer<--app-debt: Debt created
-Customer->app-catalog:/GET Get all renegotiation products
-Customer<--app-catalog: List of renegotiation products
-Customer->app-debt: /PATCH Define debt renegotiation
+front-end->app-debt:/POST Create customer debt 
+front-end<--app-debt: Debt created
+front-end->app-catalog:/GET Get all renegotiation products
+front-end<--app-catalog: List of renegotiation products
+front-end->app-debt: /PATCH Define customer debt renegotiation
 app-debt->app-payment: Create Payment Renegotiation
-note over app-payment: Topic: payment.renegotiation.create.request
+app-debt<--app-payment: message sent to topic
+front-end<--app-debt: Debt  Renegotiation created
+note over app-payment: Listen Topic: payment.renegotiation.create.request
 app-payment->app-payment: Save Payment of Renegatiation
 app-payment->app-payment: ?PIX: generate pix code,\n?BILLING_SLIP: generate billing slip,\n?CREDIT_CARD: call payment gateway
 app-payment->app-notification: Send Customer Notification
-note over app-notification:Topic: ???
+app-payment<--app-notification: message sent to topic
+note over app-notification:Listen Topic: notifications.customer.request
+app-notification->app-notification: Save Notification
+app-notification->app-notification: Send Notification by type and event
 
-
-
-Alice->Bob:Click and drag to create a request or\ntype it in the source area to the left
-Alice<--Bob:drag to move
-note over Bob,Double click to edit text:Click Help menu for **instructions** and **examples**
-Bob->(3)Double click to edit text:non-instantaneous message
