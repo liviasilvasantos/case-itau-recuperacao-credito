@@ -10,14 +10,14 @@ spring:
     mongodb:
       username: debt
       password: debt
-      host: localhost
+      host: ${MONGODB_HOST:localhost}
       port: 27017
       database: dbDebt
       uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
   kafka:
     producer:
       bootstrap-servers:
-        - localhost:9092
+        - ${KAFKA_HOST:localhost}:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     topics:
