@@ -1,7 +1,5 @@
-FROM maven:3.8.3-openjdk-17
+FROM openjdk:17-alpine
 LABEL Lívia Silva Santos <liviasilvasantos@gmail.com>
-WORKDIR /app-customer
-COPY . .
-RUN mvn clean install
+COPY target/app-customer*.jar app-customer.jar
 EXPOSE 8081
-CMD ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app-customer.jar"]

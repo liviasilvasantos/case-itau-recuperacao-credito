@@ -1,7 +1,5 @@
-FROM maven:3.8.3-openjdk-17
+FROM openjdk:17-alpine
 LABEL Lívia Silva Santos <liviasilvasantos@gmail.com>
-WORKDIR /app-debt
-COPY . .
-RUN mvn clean install
+COPY target/app-debt*.jar app-debt.jar
 EXPOSE 8084
-CMD ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app-debt.jar"]

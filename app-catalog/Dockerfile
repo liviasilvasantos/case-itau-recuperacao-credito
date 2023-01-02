@@ -1,7 +1,5 @@
-FROM maven:3.8.3-openjdk-17
+FROM openjdk:17-alpine
 LABEL Lívia Silva Santos <liviasilvasantos@gmail.com>
-WORKDIR /app-catalog
-COPY . .
-RUN mvn clean install
+COPY target/app-catalog*.jar app-catalog.jar
 EXPOSE 8083
-CMD ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app-catalog.jar"]

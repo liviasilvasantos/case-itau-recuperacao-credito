@@ -1,7 +1,5 @@
-FROM maven:3.8.3-openjdk-17
+FROM openjdk:17-alpine
 LABEL Lívia Silva Santos <liviasilvasantos@gmail.com>
-WORKDIR /app-payment
-COPY . .
-RUN mvn clean install
+COPY target/app-payment*.jar app-payment.jar
 EXPOSE 8085
-CMD ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app-payment.jar"]
