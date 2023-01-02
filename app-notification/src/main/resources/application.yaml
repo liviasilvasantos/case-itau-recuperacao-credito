@@ -6,14 +6,14 @@ spring:
     mongodb:
       username: notification
       password: notification
-      host: localhost
+      host: ${MONGODB_HOST:localhost}
       port: 27017
       database: dbNotification
       uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.database}
   kafka:
     consumer:
       bootstrap-servers:
-        - localhost:9092
+        - ${KAFKA_HOST:localhost}:9092
       group-id: notification-group
       key-serializer: org.apache.kafka.common.serialization.StringDeserializer
       value-serializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -22,6 +22,11 @@ spring:
       concurrency: 2
     topics:
       notification-request: notifications.customer.request
+
+feign:
+  customer:
+    name: customerClient
+    url: http://${CUSTOMER_API_HOST:localhost}:8081
 
 #Resilience4j
 resilience4j:
