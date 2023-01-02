@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhoneResponseJson {
+public class PhoneResponseJson implements Serializable {
 
     private PhoneType type;
     private int countryCode;

@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressResponseJson {
+public class AddressResponseJson implements Serializable {
 
     private AddressType type;
     private String street;
