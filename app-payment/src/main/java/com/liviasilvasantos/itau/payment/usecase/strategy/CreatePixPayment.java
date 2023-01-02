@@ -41,6 +41,7 @@ public class CreatePixPayment implements CreatePaymentStrategy {
 
     private Payment buildPayment(final PaymentContext context) {
         val pixPayment = Payment.builder()
+                .customerId(context.getPaymentRenegotiation().getCustomerId())
                 .createdAt(LocalDateTime.now())
                 .type(PaymentType.PIX)
                 .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()))

@@ -40,6 +40,7 @@ public class CreateBillingSlipPayment implements CreatePaymentStrategy {
 
     private Payment buildPayment(final PaymentContext context) {
         val billingSlipPayment = Payment.builder()
+                .customerId(context.getPaymentRenegotiation().getCustomerId())
                 .createdAt(LocalDateTime.now())
                 .type(PaymentType.BILLING_SLIP)
                 .expiresAt(LocalDateTime.now().plusMinutes(context.getCatalog().getExpirationInMinutes()))
