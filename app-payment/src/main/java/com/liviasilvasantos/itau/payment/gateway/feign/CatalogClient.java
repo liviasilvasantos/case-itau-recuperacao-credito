@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 
-@FeignClient(name = "${feign.catalog.name}", url = "${feign.catalog.url")
+@FeignClient(name = "${feign.catalog.name}", url = "${feign.catalog.url}")
 public interface CatalogClient {
 
     @CircuitBreaker(name = "catalogClient", fallbackMethod = "fallbackFindById")
@@ -19,7 +19,7 @@ public interface CatalogClient {
 
     default CatalogResponseJson fallbackFindById(final String id, final Exception exception) {
         val logger = LoggerFactory.getLogger(CatalogClient.class);
-        logger.error("integration error - catalog api");
+        logger.error("integration error - catalog api", exception);
         return CatalogResponseJson.builder()
                 .id(id)
                 .createdAt(LocalDateTime.now())

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 
-@FeignClient(name = "${feign.customer.name}", url = "${feign.customer.url")
+@FeignClient(name = "${feign.customer.name}", url = "${feign.customer.url}")
 public interface CustomerClient {
 
     @CircuitBreaker(name = "customerClient", fallbackMethod = "fallbackFindById")
