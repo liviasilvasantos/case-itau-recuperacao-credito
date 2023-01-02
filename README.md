@@ -34,3 +34,25 @@ Alguns desafios, porém, surgem com o cenário proposto, e devem ser considerado
 ## Fluxo
 ![Debt Renegotiation](./images/case-itau-flow.png?raw=true "Debt Renegotiation")
 
+## Subindo a stack Proposta
+
+> docker-compose up -d
+
+Sugiro acompanhar os containers com o [Lazydocker](https://github.com/jesseduffield/lazydocker).
+
+## Documentação das Aplicações
+
+# Customer
+http://localhost:8081/swagger-ui/index.html
+
+# Notification
+http://localhost:8082/swagger-ui/index.html
+
+# Catalog
+http://localhost:8083/swagger-ui/index.html
+
+# Debt
+http://localhost:8084/swagger-ui/index.html
+
+# Payment
+http://localhost:8085/swagger-ui/index.html
