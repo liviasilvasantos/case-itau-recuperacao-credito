@@ -74,7 +74,8 @@ services:
     networks:
       - net-case-itau
     depends_on:
-      - mongo, customer-api
+      - mongo
+      - customer-api
 
   catalog-api:
     build: './app-catalog'
@@ -113,7 +114,8 @@ services:
     networks:
       - net-case-itau
     depends_on:
-      - mongo, catalog-api
+      - mongo
+      - catalog-api
 
 networks:
   net-case-itau:
