@@ -1,33 +1,35 @@
 # Case Itaú - Recuperação de Crédito
 
+## Cenário Atual
+![Cenário Atual](./images/case-itau-cenario-atual.png?raw=true "Cenário Atual")
+
+O cenário atual discorre de um sistema monolítico, com alto acoplamento e processamento batch.
+
+Com codebase único e stack de tecnologias legadas, algumas limitações de aplicações monolíticas ficam evidentes:
+
+- lentidão para atender demandas de alteração por conta do alto acoplamento
+- dificuldade para fazer deployment, já que uma pequena alteração exigirá deploy do todo e normalmente, esses deploys tendem a demandar um esforço de várias equipes, já que a aplicação não é pequena
+- os testes em ambientes de homologação e produção tendem a ser muito custosos, por demandarem muito esforço, e com isso, demoraram muito tempo
+- a performance é comprometida pois todas as partes do sistema funcionam sob uma mesma stack, não havendo escolhas específicas para cada necessidade
+- o scale para momentos de maior demanda é comprometido pelo alto custo de recurso e esforço, tanto horizontal quanto  verticalmente
+
+## Cenário Proposto
+
+É possível combinar os padrões de arquitetura de microsserviços e orientado à eventos para que seja possível o desacoplamento das funcionalidades em aplicações menores e distribuídas. Com isso, obtemos alguns benefícios:
+
+- escolha da melhor stack de tecnologia para cada parte do nosso negócio;
+- codebase menor, permitindo que mais equipes possam trabalhar em partes diferentes do sistema;
+- aplicações menores são mais fáceis de realizar testes específicos do negócio, e podem agilizar o deploy, sem precisar subir partes do sistema que nem foram alteradas;
+- aplicações menores também permitem atuação pontual em casos de scale (up e down), utilizando apenas o recurso necessário, inclusive de forma automática através de ferramentas de CI/CD;
+- a substituição de processamento em batch por jobs e stream de eventos permite que haja uma comunicação assíncrona entre as aplicações 
+
+**Falar sobre algumas funcionalidades para AWS (falar de cloud) - banco de dados, SQS, lambda, arquivos na nuvem S3
+
+**Falar de Jenkins, Kubernetes, Docker
+
+**Falar sobre ferramentas de observabilidade: métricas, logs, sonar - qualidade de teste
+
+
+## Fluxo
 ![Debt Renegotiation](./images/case-itau-flow.png?raw=true "Debt Renegotiation")
 
-## Cenário  
-Em um cenário que você é um engenheiro de sistemas que será encarregado por liderar uma inciativa de modernização de todo um legado dos sistemas de recuperação de crédito (cobrança e renegociação) (legado de 10-20 anos).  
-As principais funções que temos hoje no sistema são: Ações que cobram o cliente e funcionalidades para renegociar as dívidas e facilitar os pagamentos e praticamente rodam, em sua totalidade, no ambiente mainframe (Cobol, assembler, db2, vsam). O seu desafio como engenheiro de sistemas será buscar recortes (desacoplar funcionalidades) e desenhar uma proposta de solução técnica (apresente peças técnicas e o papel de cada uma delas) de forma que resolva a necessidade de negócio.  
-A Plataforma atual é um sistema monolítico, com alto acoplamento e processamento batch que prover as informações dos canais on-line do banco.  
-A ideia da plataforma que buscamos é ser o mais on-line possível, tendo em vista que a evolução e lançamento de produtos é constante nesse mercado e o comportamento do consumidor é sazonal.  
-
-## Requisitos
-Modernizar legado dos sistemas de Cobrança e Renegociação.
-- Aplicar tecnologias novas e emergentes;
-- Simplificar as soluções técnicas;
- -Acelerar as soluções técnicas;
-- Desacoplamento das funcionalidades;
-- Peças simples;
-- Peças performáticas;
-- Peças que tenham reuso;
-- Codifique uma funcionalidade;
-
-## Funcionalidades
-- Ações de Cobrança ao Cliente (Carta, SMS, E-mail, outros possíveis);
-- Negativação junto aos birôs de crédito (Serasa, SPC, BVS, outros possíveis);
-- Funcionalidades de Renegociação (Agrupamento da Dívida e Simulação de Pagamento, Oferta de Produtos, Efetivação Acordo, entre outros);
-- Funcionalidades de Pagamento (Emissão e Pagamento de Boletos, Débito em Conta, outros).
-
-## 1. PASSO 1 - Desenvolvimento da Solução
-Você deverá desenhar e desenvolver, em poucos dias, uma solução que atenda aos requisitos dados. Faz parte da problemática, entender o desafio proposto e elaborar um desenho de solução que o resolva.
-
-## 2. PASSO 2 - Apresentação da Solução
-Você será convidado a nos apresentar sua solução e realizar uma demonstração dela. Para nós, é mais importante entender como você chegou a esta solução, do que o resultado do exercício em si (existem inúmeras soluções corretas), então queremos entender qual foi a solução escolhida por você.  
-Caso tenha alguma dúvida ao ler este desafio, esteja a vontade para nos perguntar!
