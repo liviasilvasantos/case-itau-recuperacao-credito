@@ -30,12 +30,10 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
       - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
@@ -43,7 +41,9 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_LISTENERS: EXTERNAL_SAME_HOST://:29092,INTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL_SAME_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
 
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
@@ -57,7 +57,9 @@ services:
       KAFKA_BROKERCONNECT: kafka:29092
 
   customer-api:
-    build: './app-customer'
+    build: 
+      context: './app-customer'
+      dockerfile: 'Dockerfile-maven'
     container_name: customer-api
     ports:
       - 8081:8081
@@ -69,7 +71,9 @@ services:
       - mongo
 
   notification-api:
-    build: './app-notification'
+    build: 
+      context: './app-notification'
+      dockerfile: 'Dockerfile-maven'
     container_name: notification-api
     ports:
       - 8082:8082
@@ -85,7 +89,9 @@ services:
       - customer-api
 
   catalog-api:
-    build: './app-catalog'
+    build: 
+      context: './app-catalog'
+      dockerfile: 'Dockerfile-maven'
     container_name: catalog-api
     ports:
       - 8083:8083
@@ -97,7 +103,9 @@ services:
       - mongo
 
   debt-api:
-    build: './app-debt'
+    build: 
+      context: './app-debt'
+      dockerfile: 'Dockerfile-maven'
     container_name: debt-api
     ports:
       - 8084:8084
@@ -111,7 +119,9 @@ services:
       - kafka
 
   payment-api:
-    build: './app-payment'
+    build: 
+      context: './app-payment'
+      dockerfile: 'Dockerfile-maven'
     container_name: payment-api
     ports:
       - 8085:8085
