@@ -72,6 +72,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
 							"let debtId = pm.response.json().id;",
 							"console.log(debtId);",
 							"pm.environment.set(\"DEBT_ID\", debtId);"
@@ -106,6 +110,19 @@
 		},
 		{
 			"name": "renegotiate debt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
