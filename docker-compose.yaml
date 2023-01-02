@@ -101,7 +101,19 @@ services:
     depends_on:
       - mongo
 
-  
+  payment-api:
+    build: './app-payment'
+    container_name: payment-api
+    ports:
+      - 8085:8085
+    environment:
+      MONGODB_HOST: mongo
+      KAFKA_HOST: kafka
+      CATALOG_API_HOST: catalog-api
+    networks:
+      - net-case-itau
+    depends_on:
+      - mongo, catalog-api
 
 networks:
   net-case-itau:

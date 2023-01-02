@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 
-@FeignClient(name = "catalogClient", url = "http://localhost:8083")
+@FeignClient(name = "${feign.catalog.name}", url = "${feign.catalog.url")
 public interface CatalogClient {
 
     @CircuitBreaker(name = "catalogClient", fallbackMethod = "fallbackFindById")
