@@ -75,6 +75,7 @@ services:
       - net-case-itau
     depends_on:
       - mongo
+      - kafka
       - customer-api
 
   catalog-api:
@@ -101,6 +102,7 @@ services:
       - net-case-itau
     depends_on:
       - mongo
+      - kafka
 
   payment-api:
     build: './app-payment'
@@ -115,6 +117,7 @@ services:
       - net-case-itau
     depends_on:
       - mongo
+      - kafka
       - catalog-api
 
 networks:
