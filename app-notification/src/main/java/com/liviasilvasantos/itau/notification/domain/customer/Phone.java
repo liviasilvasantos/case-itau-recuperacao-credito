@@ -2,6 +2,7 @@ package com.liviasilvasantos.itau.notification.domain.customer;
 
 import lombok.*;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
