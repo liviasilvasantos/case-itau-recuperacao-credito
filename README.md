@@ -34,25 +34,41 @@ Alguns desafios, porém, surgem com o cenário proposto, e devem ser considerado
 ## Fluxo
 ![Debt Renegotiation](./images/case-itau-flow.png?raw=true "Debt Renegotiation")
 
-## Subindo a stack Proposta
+## Usando a stack Proposta
 
 > docker-compose up -d
 
-Sugiro acompanhar os containers com o [Lazydocker](https://github.com/jesseduffield/lazydocker).
+*Sugiro acompanhar os containers com o [Lazydocker](https://github.com/jesseduffield/lazydocker).
+
+O comando acima irá executar o build e subir cada uma das aplicações propostas, além do Mongo, Kafka e Zookeeper, que também fazem parte da proposta. 
+
+## Acessando as APIs
+
+O modo mais fácil é executar a collection de testes via Postman. Para isso, basta importar os dois arquivos em /postman-collection no Postman, e clicar em Run Collection, que executará na sequencia:
+
+- Listar todos os customers e memorizar o id do primeiro
+- Listar todos os catálogos e memorizar o id do primeiro
+- Criar uma dívida no valor de 1000,00 para o customer encontrado acima
+- Definir uma estratégia de renegociação para a dívida criada acima no valor de 800,00
+  - Nesse momento, uma mensagem no tópico de pagamento é criado
+  - Durante o processamento do pagamento, uma nova mensagem no tópico de notificação é criado
+- Listar todos os pagamentos
 
 ## Documentação das Aplicações
 
-# Customer
+Também é possível acessar a documentação de cada app proposta.
+
+### Customer
 http://localhost:8081/swagger-ui/index.html
 
-# Notification
+### Notification
 http://localhost:8082/swagger-ui/index.html
 
-# Catalog
+### Catalog
 http://localhost:8083/swagger-ui/index.html
 
-# Debt
+### Debt
 http://localhost:8084/swagger-ui/index.html
 
-# Payment
+### Payment
 http://localhost:8085/swagger-ui/index.html
